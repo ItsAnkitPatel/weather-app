@@ -17,13 +17,24 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: radial-gradient(
+      farthest-side at 0% 100%,
+      #c2c2ffff 0%,
+      #c2e7ffff 25%,
+      #ffd1f9ff 50%,
+      #ecebffff 75%,
+      #c2c2ffff 100%
+    ),
+    radial-gradient(
+      farthest-corner at 100% 100%,
+      #c2c2ffff 0%,
+      #ecebffff 25%,
+      #ffd1f9ff 50%,
+      #c2e7ffff 75%,
+      #c2c2ffff 100%
+    );
+  background-blend-mode: saturation;
+  background-repeat: no-repeat;
 }
 
 @layer utilities {

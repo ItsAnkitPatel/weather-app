@@ -22,7 +22,6 @@ const SearchBar = () => {
     setEnableOverlay,
   } = useAppContext();
 
-
   // It is used for removing the ShowLocations component
   const searchBarRef = useRef<HTMLDivElement | null>(null);
 
@@ -77,49 +76,52 @@ const SearchBar = () => {
   };
 
   return (
-    <div
-      ref={searchBarRef}
-      className={cn(
-        "mx-auto w-full rounded-xl bg-white/70 p-1 shadow-md duration-200 focus-within:shadow-lg hover:shadow-lg lg:max-w-4xl",
-        { "bg-white": enableOverlay },
-      )}
-    >
+    <>
       {/* overlay */}
       {enableOverlay && (
         <div className="absolute inset-0 left-0 right-0 -z-10 min-h-screen w-screen bg-black/50" />
       )}
-      <div className="z-10 w-full">
-        <form onSubmit={handleSearchBtnClick}>
-          <div className="flex items-center justify-between px-1">
-            <div className="w-full">
-              <input
-                name="city"
-                value={inputValue}
-                type="text"
-                className="h-10 w-full bg-transparent px-2 outline-none"
-                onChange={handleChange}
-                onClick={() => {
-                  setEnableLocationBar(true);
-                  setEnableOverlay(true);
-                }}
-                autoComplete="off"
-                placeholder="Enter your city ☃️"
-              />
-            </div>
-            <div className="flex">
-              {searchLoader && <SearchLoader />}
-              <LucideSearch
-                className="mx-4 cursor-pointer"
-                onClick={handleSearchBtnClick}
-              />
-            </div>
-          </div>
-        </form>
-      </div>
 
-      {/* Location section */}
-      {enableLocationBar && <ShowLocations />}
-    </div>
+      <div
+        ref={searchBarRef}
+        className={cn(
+          "relative mx-auto w-full overflow-hidden rounded-xl bg-white/70 p-1 shadow-md duration-200 focus-within:shadow-lg hover:shadow-lg lg:max-w-4xl",
+          { "bg-white": enableOverlay },
+        )}
+      >
+        <div className="z-10 w-full">
+          <form onSubmit={handleSearchBtnClick}>
+            <div className="flex items-center justify-between px-1">
+              <div className="w-full">
+                <input
+                  name="city"
+                  value={inputValue}
+                  type="text"
+                  className="h-10 w-full bg-transparent px-2 outline-none"
+                  onChange={handleChange}
+                  onClick={() => {
+                    setEnableLocationBar(true);
+                    setEnableOverlay(true);
+                  }}
+                  autoComplete="off"
+                  placeholder="Enter your city ☃️"
+                />
+              </div>
+              <div className="flex">
+                {searchLoader && <SearchLoader />}
+                <LucideSearch
+                  className="mx-4 cursor-pointer"
+                  onClick={handleSearchBtnClick}
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+
+        {/* Location section */}
+        {enableLocationBar && <ShowLocations />}
+      </div>
+    </>
   );
 };
 

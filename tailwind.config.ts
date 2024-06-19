@@ -26,6 +26,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-merge")],
 };
 export default config;

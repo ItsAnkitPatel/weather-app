@@ -1,5 +1,6 @@
 import { useAppContext } from "@/context";
 import RecentCitySearches from "./RecentCitySearches";
+import fetchCurrentWeather from "@/api/weatherapi";
 
 type City = {
   city: string;
@@ -7,12 +8,11 @@ type City = {
   country: string;
 };
 
-
 const ShowLocations = () => {
-  const { cities, setEnableLocationBar } = useAppContext();
+  const { cities, setEnableLocationBar, setEnableOverlay } = useAppContext();
   console.log("show locations", cities);
-  const doSome = (city: City) => {
-    console.log(city);
+  const fetchWeather = (city: City) => {
+    fetchCurrentWeather(city);
   };
   const storedCityNames = JSON.parse(localStorage.getItem("cityNames") ?? "[]");
   console.log(storedCityNames);
@@ -28,8 +28,9 @@ const ShowLocations = () => {
               className="w-full rounded-lg px-2 py-3 transition-shadow duration-300 hover:cursor-pointer hover:border hover:shadow-lg"
               key={index}
               onClick={() => {
-                doSome(city);
+                fetchWeather(city);
                 setEnableLocationBar(false);
+                setEnableOverlay(false);
               }}
             >
               {`${city.city}, ${city.region}, ${city.country}`}

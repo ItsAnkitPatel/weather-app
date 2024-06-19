@@ -3,9 +3,10 @@
 import fetchLocations from "@/api/cityapi";
 import { useAppContext } from "@/context";
 import { LucideSearch } from "lucide-react";
-import { FormEvent, useEffect, useRef } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import SearchLoader from "./SearchLoader";
 import ShowLocations from "./ShowLocations";
+import { cn } from "@/lib/utils";
 
 const SearchBar = () => {
   // extracting context values
@@ -17,7 +18,10 @@ const SearchBar = () => {
     searchLoader,
     inputValue,
     setInputValue,
+    enableOverlay,
+    setEnableOverlay,
   } = useAppContext();
+
 
   // It is used for removing the ShowLocations component
   const searchBarRef = useRef<HTMLDivElement | null>(null);
@@ -29,6 +33,7 @@ const SearchBar = () => {
         !searchBarRef.current.contains(event.target as Node)
       ) {
         setEnableLocationBar(false);
+        setEnableOverlay(false);
       }
     }
 
@@ -36,7 +41,7 @@ const SearchBar = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [setEnableLocationBar]);
+  }, [setEnableLocationBar, setEnableOverlay]);
 
   // API fetch call function
   const startSearch = async (cityName: string) => {
@@ -74,9 +79,16 @@ const SearchBar = () => {
   return (
     <div
       ref={searchBarRef}
-      className="mx-auto w-full rounded-xl bg-white/70 p-1 shadow-md duration-200 focus-within:shadow-lg hover:shadow-lg lg:max-w-4xl"
+      className={cn(
+        "mx-auto w-full rounded-xl bg-white/70 p-1 shadow-md duration-200 focus-within:shadow-lg hover:shadow-lg lg:max-w-4xl",
+        { "bg-white": enableOverlay },
+      )}
     >
-      <div className="w-full">
+      {/* overlay */}
+      {enableOverlay && (
+        <div className="absolute inset-0 left-0 right-0 -z-10 min-h-screen w-screen bg-black/50" />
+      )}
+      <div className="z-10 w-full">
         <form onSubmit={handleSearchBtnClick}>
           <div className="flex items-center justify-between px-1">
             <div className="w-full">
@@ -88,6 +100,7 @@ const SearchBar = () => {
                 onChange={handleChange}
                 onClick={() => {
                   setEnableLocationBar(true);
+                  setEnableOverlay(true);
                 }}
                 autoComplete="off"
                 placeholder="Enter your city ☃️"

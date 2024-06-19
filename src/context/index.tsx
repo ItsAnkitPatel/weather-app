@@ -21,6 +21,10 @@ type AppContextType = {
   setSearchLoader: Dispatch<SetStateAction<boolean>>;
   inputValue: string;
   setInputValue: Dispatch<SetStateAction<string>>;
+  enableCurrentWeather: boolean;
+  setEnableCurrentWeather: Dispatch<SetStateAction<boolean>>;
+  enableOverlay: boolean;
+  setEnableOverlay: Dispatch<SetStateAction<boolean>>;
 };
 
 // Create a context with a default value
@@ -33,6 +37,10 @@ const AppContext = createContext<AppContextType>({
   setSearchLoader: () => {},
   inputValue: "",
   setInputValue: () => {},
+  enableCurrentWeather: false,
+  setEnableCurrentWeather: () => {},
+  enableOverlay: false,
+  setEnableOverlay: () => {},
 });
 
 export const AppContextProvider = ({
@@ -44,8 +52,9 @@ export const AppContextProvider = ({
   const [enableLocationBar, setEnableLocationBar] = useState(false);
   const [searchLoader, setSearchLoader] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [enableCurrentWeather, setEnableCurrentWeather] = useState(false);
+  const [enableOverlay, setEnableOverlay] = useState(false);
 
-  // Provide the state and the updater function to the context
   return (
     <AppContext.Provider
       value={{
@@ -57,6 +66,10 @@ export const AppContextProvider = ({
         setSearchLoader,
         inputValue,
         setInputValue,
+        enableCurrentWeather,
+        setEnableCurrentWeather,
+        enableOverlay,
+        setEnableOverlay,
       }}
     >
       {children}
@@ -65,6 +78,5 @@ export const AppContextProvider = ({
 };
 
 export const useAppContext = () => {
-  // Use the context
   return useContext(AppContext);
 };

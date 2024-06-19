@@ -19,6 +19,8 @@ type AppContextType = {
   setEnableLocationBar: Dispatch<SetStateAction<boolean>>;
   searchLoader: boolean;
   setSearchLoader: Dispatch<SetStateAction<boolean>>;
+  inputValue: string;
+  setInputValue: Dispatch<SetStateAction<string>>;
 };
 
 // Create a context with a default value
@@ -29,6 +31,8 @@ const AppContext = createContext<AppContextType>({
   setEnableLocationBar: () => {},
   searchLoader: false,
   setSearchLoader: () => {},
+  inputValue: "",
+  setInputValue: () => {},
 });
 
 export const AppContextProvider = ({
@@ -39,6 +43,7 @@ export const AppContextProvider = ({
   const [cities, setCities] = useState<City[]>([]);
   const [enableLocationBar, setEnableLocationBar] = useState(false);
   const [searchLoader, setSearchLoader] = useState(false);
+  const [inputValue, setInputValue] = useState("");
 
   // Provide the state and the updater function to the context
   return (
@@ -50,6 +55,8 @@ export const AppContextProvider = ({
         setEnableLocationBar,
         searchLoader,
         setSearchLoader,
+        inputValue,
+        setInputValue,
       }}
     >
       {children}

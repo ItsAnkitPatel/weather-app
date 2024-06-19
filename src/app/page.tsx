@@ -5,6 +5,7 @@ import LottiePlayer from "@/components/LottiePlayer";
 import { AppContextProvider } from "@/context";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CurrentWeather from "@/components/CurrentWeather";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
           <h1 className="text-3xl lg:text-nowrap">Weather Wonders</h1>
         </div>
         <SearchBar />
+        <CurrentWeather />
       </MaxWidthWrapper>
     </AppContextProvider>
   );

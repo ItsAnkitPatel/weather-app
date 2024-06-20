@@ -17,7 +17,7 @@ const fetchLocations = debounce(
     setCities: Dispatch<SetStateAction<CityData[]>>,
     setSearchLoader: Dispatch<SetStateAction<boolean>>,
   ) => {
-    setSearchLoader(true)
+    setSearchLoader(true);
     const url = `${process.env.NEXT_PUBLIC_ANALYTICS_GEODB_API}&namePrefix=${cityName}`;
     const options = {
       method: "GET",
@@ -71,13 +71,13 @@ const storeCityInLocalStorage = (cityName: string) => {
   let storedCityNames: string[] = JSON.parse(
     localStorage.getItem("cityNames") || "[]",
   );
-  if (!storedCityNames.includes(cityName)) {
-    storedCityNames.push(cityName);
 
-    if (storedCityNames.length > 3) {
-      storedCityNames.splice(0, 1);
-    }
-    localStorage.setItem("cityNames", JSON.stringify(storedCityNames));
+  storedCityNames.push(cityName);
+
+  if (storedCityNames.length > 3) {
+    // unshift can also be used here
+    storedCityNames.splice(0, 1);
   }
+  localStorage.setItem("cityNames", JSON.stringify(storedCityNames));
 };
 export default fetchLocations;

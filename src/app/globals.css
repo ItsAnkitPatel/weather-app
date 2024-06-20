@@ -35,6 +35,10 @@ body {
     );
   background-blend-mode: saturation;
   background-repeat: no-repeat;
+  position: relative;
+}
+body::-webkit-scrollbar{
+  width: 0px;
 }
 
 @layer utilities {

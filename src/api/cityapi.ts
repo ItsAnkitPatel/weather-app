@@ -1,19 +1,12 @@
+import { CityData } from "@/components/ShowLocations";
 import { debounce } from "lodash";
 import { Dispatch, SetStateAction } from "react";
 import { toast } from "react-toastify";
 
-interface CityData {
-  country: string;
-  city: string;
-  region: string;
-  latitude?: number;
-  longitude?: number;
-}
-
 const fetchLocations = debounce(
   async (
     cityName: string,
-    setEnableLocation: Dispatch<SetStateAction<boolean>>,
+    setEnableLocationBar: Dispatch<SetStateAction<boolean>>,
     setCities: Dispatch<SetStateAction<CityData[]>>,
     setSearchLoader: Dispatch<SetStateAction<boolean>>,
   ) => {
@@ -30,11 +23,12 @@ const fetchLocations = debounce(
       console.log(cityName);
       const response = await fetch(url, options);
       const result = await response.json();
+      console.log("result api data", result);
       let citiesData;
       if (result) {
         citiesData = result.data.map((cityData: CityData) => ({
           country: cityData.country,
-          city: cityData.city,
+          name: cityData.name,
           region: cityData.region,
           latitude: cityData.latitude,
           longitude: cityData.longitude,
@@ -42,11 +36,13 @@ const fetchLocations = debounce(
       } else {
         citiesData = [];
       }
+
       if (cityName.trim() !== "" && citiesData.length > 0) {
         storeCityInLocalStorage(cityName);
+        setCities(citiesData);
       } else {
         if (cityName.trim() !== "") {
-          toast.error("Not Found", {
+          toast.error("City Not Found", {
             position: "top-right",
             autoClose: 3000,
           });
@@ -54,11 +50,17 @@ const fetchLocations = debounce(
       }
 
       console.log("cities data", citiesData);
-      setCities(citiesData);
       setSearchLoader(false);
-      setEnableLocation(true);
-    } catch (error) {
-      console.error(error);
+      setEnableLocationBar(true);
+    } catch (error: any) {
+      setEnableLocationBar(true);
+
+      if (error.message === "Failed to fetch") {
+        toast.error("Failed to Fetch. Please check your internet🌐", {
+          autoClose: 3000,
+        });
+      }
+      console.log(error.message);
     }
   },
   1200,
@@ -71,7 +73,10 @@ const storeCityInLocalStorage = (cityName: string) => {
   let storedCityNames: string[] = JSON.parse(
     localStorage.getItem("cityNames") || "[]",
   );
-
+  // if the recent search already exists in the localStorage, then no need to go further
+  if (storedCityNames.includes(cityName)) {
+    return;
+  }
   storedCityNames.push(cityName);
 
   if (storedCityNames.length > 3) {

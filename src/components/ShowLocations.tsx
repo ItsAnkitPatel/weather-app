@@ -1,19 +1,45 @@
 import { useAppContext } from "@/context";
 import RecentCitySearches from "./RecentCitySearches";
-import fetchCurrentWeather from "@/api/weatherapi";
+import fetchWeather from "@/api/weatherapi";
+import { useWeatherStore } from "@/store/weather";
 
-type City = {
-  city: string;
+export type CityData = {
+  name: string;
   region: string;
   country: string;
+  longitude?: number;
+  latitude?: number;
 };
 
 const ShowLocations = () => {
   const { cities, setEnableLocationBar, setEnableOverlay } = useAppContext();
   console.log("show locations", cities);
-  const fetchWeather = (city: City) => {
-    fetchCurrentWeather(city);
+
+  const {
+    setEnableCurrentWeather,
+    setWeatherLoaderScreen,
+    setWeatherComponentVisibility,
+    setSelectedCity,
+  } = useWeatherStore();
+
+  const currentWeatherComponentFunc = () => {
+    setEnableCurrentWeather(true);
+    setWeatherLoaderScreen(false);
   };
+
+  const callWeatherAPI = async (city: CityData) => {
+    setEnableCurrentWeather(false);
+    setWeatherLoaderScreen(true);
+    setWeatherComponentVisibility(true);
+
+    await fetchWeather(city, setSelectedCity);
+
+    setTimeout(() => {
+      // Taking 3 seconds intentional delay so that information can get loaded in localstrorage
+      currentWeatherComponentFunc();
+    }, 3000);
+  };
+
   const storedCityNames = JSON.parse(localStorage.getItem("cityNames") ?? "[]");
   console.log(storedCityNames);
   return (
@@ -28,12 +54,12 @@ const ShowLocations = () => {
               className="w-full rounded-lg px-2 py-3 transition-shadow duration-300 hover:cursor-pointer hover:border hover:shadow-lg"
               key={index}
               onClick={() => {
-                fetchWeather(city);
+                callWeatherAPI(city);
                 setEnableLocationBar(false);
                 setEnableOverlay(false);
               }}
             >
-              {`${city.city}, ${city.region}, ${city.country}`}
+              {`${city.name}, ${city.region}, ${city.country}`}
             </div>
           ))
         ) : (

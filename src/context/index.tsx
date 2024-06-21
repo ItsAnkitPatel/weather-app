@@ -7,67 +7,12 @@ import React, {
 } from "react";
 
 type City = {
-  city: string;
+  name: string;
   region: string;
   country: string;
 };
 
-type WeatherType = {
-  coord: {
-    lon: number;
-    lat: number;
-  };
-  weather: [
-    {
-      main: string;
-      description: string;
-      icon: string;
-    },
-  ];
 
-  main: {
-    temp: number;
-    feels_like: number;
-    temp_min: number;
-    temp_max: number;
-    pressure: number;
-    humidity: number;
-  };
-  dt: number;
-  sys: {
-    country: string;
-  };
-  name: string;
-  cod: number;
-};
-
-const initialWeatherValues:WeatherType= {
-  coord: {
-    lon: 0,
-    lat: 0,
-  },
-  weather: [
-    {
-      main: "",
-      description: "",
-      icon: "",
-    },
-  ],
-  main: {
-    temp: 0,
-    feels_like: 0,
-    temp_min: 0,
-    temp_max: 0,
-    pressure: 0,
-    humidity: 0,
-  },
-  dt: 0,
-  sys: {
-    country: "",
-  },
-  name: "",
-  cod: 0,
-};
 
 
 type AppContextType = {
@@ -79,14 +24,10 @@ type AppContextType = {
   setSearchLoader: Dispatch<SetStateAction<boolean>>;
   inputValue: string;
   setInputValue: Dispatch<SetStateAction<string>>;
-  enableCurrentWeather: boolean;
-  setEnableCurrentWeather: Dispatch<SetStateAction<boolean>>;
+
   enableOverlay: boolean;
   setEnableOverlay: Dispatch<SetStateAction<boolean>>;
 
-  // For weather
-  currentWeatherValues: WeatherType;
-  setCurrentWeatherValues: Dispatch<SetStateAction<WeatherType>>;
   forecastWeatherValues: Object;
   setForecastWeatherValues: Dispatch<SetStateAction<Object>>;
 };
@@ -101,12 +42,8 @@ const AppContext = createContext<AppContextType>({
   setSearchLoader: () => {},
   inputValue: "",
   setInputValue: () => {},
-  enableCurrentWeather: false,
-  setEnableCurrentWeather: () => {},
   enableOverlay: false,
   setEnableOverlay: () => {},
-  currentWeatherValues: initialWeatherValues,
-  setCurrentWeatherValues: () => {},
   forecastWeatherValues: {},
   setForecastWeatherValues: () => {},
 });
@@ -120,13 +57,9 @@ export const AppContextProvider = ({
   const [enableLocationBar, setEnableLocationBar] = useState(false);
   const [searchLoader, setSearchLoader] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [enableCurrentWeather, setEnableCurrentWeather] = useState(false);
+ 
   const [enableOverlay, setEnableOverlay] = useState(false);
-  const [currentWeatherValues, setCurrentWeatherValues] =
-    useState<WeatherType>(initialWeatherValues);
   const [forecastWeatherValues, setForecastWeatherValues] = useState({});
-
-  
 
   return (
     <AppContext.Provider
@@ -139,13 +72,10 @@ export const AppContextProvider = ({
         setSearchLoader,
         inputValue,
         setInputValue,
-        enableCurrentWeather,
-        setEnableCurrentWeather,
+
         enableOverlay,
         setEnableOverlay,
 
-        currentWeatherValues,
-        setCurrentWeatherValues,
         forecastWeatherValues,
         setForecastWeatherValues,
       }}

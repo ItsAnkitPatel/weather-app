@@ -20,9 +20,14 @@ const config: Config = {
           "0%, 100%": { opacity: "0.2" },
           "20%": { opacity: "1" },
         },
+        stretch: {
+          '0%, 100%': { transform: 'scaleX(1)' },
+          '50%': { transform: 'scaleX(1.2)' },
+        }
       },
       animation: {
         flashing: "flashing 1.4s infinite linear",
+        stretch: 'stretch 2s infinite',
       },
     },
   },

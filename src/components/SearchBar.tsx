@@ -7,8 +7,10 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import SearchLoader from "./SearchLoader";
 import ShowLocations from "./ShowLocations";
 import { cn } from "@/lib/utils";
+import { useWeatherStore } from "@/store/weather";
 
 const SearchBar = () => {
+
   // extracting context values
   const {
     setCities,
@@ -22,9 +24,12 @@ const SearchBar = () => {
     setEnableOverlay,
   } = useAppContext();
 
-  // It is used for removing the ShowLocations component
+  // It is used for removing the ShowLocations component plus overlay 
   const searchBarRef = useRef<HTMLDivElement | null>(null);
-
+  // context from zustand store
+  const { setWeatherComponentVisibility } =
+    useWeatherStore();
+ 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -33,6 +38,7 @@ const SearchBar = () => {
       ) {
         setEnableLocationBar(false);
         setEnableOverlay(false);
+        setWeatherComponentVisibility(true);
       }
     }
 
@@ -42,7 +48,7 @@ const SearchBar = () => {
     };
   }, [setEnableLocationBar, setEnableOverlay]);
 
-  // API fetch call function
+  // call the api to fetch the locations
   const startSearch = async (cityName: string) => {
     await fetchLocations(
       cityName,
@@ -100,6 +106,8 @@ const SearchBar = () => {
                   className="h-10 w-full bg-transparent px-2 outline-none"
                   onChange={handleChange}
                   onClick={() => {
+                    
+                    setWeatherComponentVisibility(false);
                     setEnableLocationBar(true);
                     setEnableOverlay(true);
                   }}

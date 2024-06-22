@@ -34,7 +34,7 @@ const RecentCitySearches = () => {
   };
 
   return (
-    <div className="flex gap-5">
+    <div className="flex gap-5 transition-all duration-700">
       {storedCityNames.map((city: string) => (
         <div
           className="flex items-center rounded-full bg-zinc-200 px-1 py-2 hover:bg-zinc-300 transition-all duration-300 hover:shadow-md"

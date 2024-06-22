@@ -67,9 +67,9 @@ const ForecastWeather = () => {
             console.log("index", index);
             return (
               // Before Hover
-              <div className="rounded-3xl shadow-lg">
+              <div className="rounded-3xl shadow-lg" key={i}>
                 <div
-                  key={i}
+                  
                   className={`group relative min-h-48 w-20 overflow-hidden text-wrap rounded-3xl p-2 shadow-inner shadow-zinc-400/80 transition-all duration-1000 max-md:hover:h-52 md:hover:w-52`}
                 >
                   <div className="absolute flex flex-col items-center gap-8 py-2 text-zinc-700 transition-opacity duration-1000 group-hover:opacity-0">

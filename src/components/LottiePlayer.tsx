@@ -4,14 +4,23 @@ const LottiePlayer = ({
   srcPath,
   width,
   height,
-  speed
+  speed,
+  className,
 }: {
   srcPath: string;
   width?: number;
   height?: number;
-  speed?:number
+  speed?: number;
+  className?: string;
 }) => (
-  <DotLottieReact autoplay loop src={srcPath} style={{ width: width + "px", height: height + "px" }} speed={speed}/>
+  <DotLottieReact
+    autoplay
+    loop
+    src={srcPath}
+    style={{ width: width + "rem", height: height + "px" }}
+    speed={speed}
+    className={className}
+  />
 );
 
 export default LottiePlayer;

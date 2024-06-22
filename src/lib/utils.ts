@@ -6,28 +6,30 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 type FormatDateType = {
-  day: string;
-  hours: number;
+  day: number;
+  date: number;
+  hour: number;
 };
-export const formatDate = (milliseconds: number) => {
-  const date = new Date(milliseconds * 1000);
+export const formatDate = ( timeZone: number) => {
+
+    // Convert timezone offset from seconds to milliseconds
+  const offsetMilliseconds = timeZone * 1000;
+
+  // Get the local time in milliseconds
+  const localTimeMilliseconds = new Date().toUTCString() + offsetMilliseconds;
   
-  const day = date.getDay().toString();
 
-  const hours = Number(date.getHours().toString().split("/")[0]);
-  // example: 10:46:16 we are extracting 10 here
-
-  // console.log("hours", hours);
-  // console.log(
-  //   "day ",
-  //   day,
-  //   "date",
-  //   date.getDate(),
-  //   date.toLocaleDateString(),
-  //   "hours",
-  //   date.toLocaleTimeString(),
-  // );
-
-  const data: FormatDateType = { day, hours };
+  // Create a new Date object with the local time
+  const localDate = new Date(localTimeMilliseconds);
+  
+  // Get the hour in local time
+  const day = localDate.getDay();
+  const hour = localDate.getHours();
+  const date = localDate.getDate();
+console.log(localDate.toLocaleDateString())
+  console.log(date);
+  // Determine if it's day or night
+  console.log("day", day, "hour", hour, "date", date);
+  const data: FormatDateType = { day, date, hour };
   return data;
 };

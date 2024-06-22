@@ -61,7 +61,7 @@ const ForecastWeather = () => {
       })}
     >
       <div className="mx-auto w-7/12">
-        <div className="flex flex-col px-2 py-3 md:flex md:flex-row md:justify-around md:gap-1">
+        <div className="flex flex-col px-2 py-3 max-md:items-center max-md:gap-5 md:flex md:flex-row md:justify-around md:gap-1">
           {Array.from({ length: 5 }, (_, i) => {
             const index = i === 0 ? 0 : i * 8;
             console.log("index", index);
@@ -69,10 +69,15 @@ const ForecastWeather = () => {
               // Before Hover
               <div className="rounded-3xl shadow-lg" key={i}>
                 <div
-                  
-                  className={`group relative min-h-48 w-20 overflow-hidden text-wrap rounded-3xl p-2 shadow-inner shadow-zinc-400/80 transition-all duration-1000 max-md:hover:h-52 md:hover:w-52`}
+                  className={`group relative h-16 w-64 sm:w-96 overflow-hidden text-wrap rounded-3xl p-2 shadow-inner shadow-zinc-400/80 transition-all duration-1000 
+                     
+                    max-md:hover:min-h-52 md:min-h-48 md:w-20 md:hover:w-52`}
                 >
-                  <div className="absolute flex flex-col items-center gap-8 py-2 text-zinc-700 transition-opacity duration-1000 group-hover:opacity-0">
+                  <div className="absolute flex flex-row items-center 
+                  gap-12 sm:gap-28
+                  md:gap-8
+                  
+                  py-2 text-zinc-700 transition-opacity duration-1000 group-hover:opacity-0 md:flex-col">
                     <span className="text-lg">{forecastDays[i]}</span>
                     <span className="animate-stretch text-2xl">
                       {
@@ -85,8 +90,7 @@ const ForecastWeather = () => {
                       {forecastInfo?.list[index]?.main.feels_like} <sup>o</sup>C
                     </span>
                   </div>
-                  
-                  
+
                   {/* After hover */}
                   <div className="absolute mx-auto flex flex-col gap-3 px-1 py-2 text-zinc-800 opacity-0 transition-all duration-1000 *:underline *:decoration-zinc-500/20 *:underline-offset-4 group-hover:opacity-100">
                     <div className="space-x-4">
@@ -97,7 +101,7 @@ const ForecastWeather = () => {
                           ]?.icon
                         }
                       </span>
-                      <span className="animate-stretch inline-block text-xl">
+                      <span className="inline-block animate-stretch text-xl">
                         {
                           WEATHERINFO[
                             forecastInfo?.list[index]?.weather[0]["icon"]

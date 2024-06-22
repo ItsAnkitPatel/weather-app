@@ -45,8 +45,8 @@ const weatherInfoSchema: Schema = new mongoose.Schema<weatherInfo>(
   },
 );
 
-const WeatherInfo =
+const WeatherInfoModel =
   mongoose.models.WeatherInfo ||
   mongoose.model("WeatherInfo", weatherInfoSchema);
 
-export default WeatherInfo;
+export default WeatherInfoModel;

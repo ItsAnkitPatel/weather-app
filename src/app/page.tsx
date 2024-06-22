@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import CurrentWeather from "@/components/CurrentWeather";
 import { useWeatherStore } from "@/store/weather";
 import WeatherLoaderScreen from "@/components/Loader";
+import ForecastWeather from "@/components/ForecastWeather";
 
 export default function Home() {
   const { enableCurrentWeather, weatherLoaderScreen } = useWeatherStore();
@@ -20,18 +21,17 @@ export default function Home() {
           <div className="w-56">
             <LottiePlayer srcPath="/sun-animation.lottie" />
           </div>
-          <h1
-            className="text-3xl lg:text-nowrap ">
-            Weather Wonders
-          </h1>
+          <h1 className="text-3xl lg:text-nowrap">Weather Wonders</h1>
         </div>
         <SearchBar />
-        
+
         {enableCurrentWeather ? (
           <CurrentWeather />
         ) : (
           weatherLoaderScreen && <WeatherLoaderScreen />
         )}
+
+        {enableCurrentWeather && <ForecastWeather />}
       </MaxWidthWrapper>
     </AppContextProvider>
   );

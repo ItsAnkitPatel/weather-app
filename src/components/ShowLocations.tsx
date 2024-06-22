@@ -19,7 +19,6 @@ const ShowLocations = () => {
     setEnableCurrentWeather,
     setWeatherLoaderScreen,
     setWeatherComponentVisibility,
-    setSelectedCity,
   } = useWeatherStore();
 
   const currentWeatherComponentFunc = () => {
@@ -32,7 +31,7 @@ const ShowLocations = () => {
     setWeatherLoaderScreen(true);
     setWeatherComponentVisibility(true);
 
-    await fetchWeather(city, setSelectedCity);
+    await fetchWeather(city);
 
     setTimeout(() => {
       // Taking 3 seconds intentional delay so that information can get loaded in localstrorage

@@ -2,19 +2,18 @@
 import { cn, formatDate } from "@/lib/utils";
 import { MapPin } from "lucide-react";
 import LottiePlayer from "./LottiePlayer";
-import { WEATHERINFO } from "../constants";
+import { WEATHERINFO, WEEKDAYS } from "../constants";
 import { useEffect, useState } from "react";
 import { useWeatherStore } from "@/store/weather";
 const CurrentWeather = () => {
-  
   let info = [];
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     info = JSON.parse(localStorage.getItem("currentWeather") ?? "[]");
   }
   const [isMounted, setIsMounted] = useState(false);
   const [weatherInfo, setWeatherInfo] = useState(info);
-  // sample data
-  // const weatherInfo = {
+  // sample data from weather api
+  // const weatherData = {
   //   coord: {
   //     lon: 81.2833,
   //     lat: 24.5167,
@@ -59,9 +58,7 @@ const CurrentWeather = () => {
   //   cod: 200,
   // };
 
-  console.log("Entered CurrentWeather");
-
-  const { weatherComponentVisibility, selectedCity } = useWeatherStore();
+  const { weatherComponentVisibility } = useWeatherStore();
   useEffect(() => {
     setIsMounted(true); // Component has mounted
   }, []);
@@ -77,13 +74,13 @@ const CurrentWeather = () => {
   if (!isMounted || weatherInfo.length === 0) {
     return;
   }
-  const formatDateInfo = formatDate(weatherInfo?.dt);
+  const formatDateInfo = formatDate(weatherInfo?.timezone);
 
   return (
     <>
       <div
         className={cn(
-          "mb-20 mt-20 min-h-fit opacity-0 transition-all duration-700",
+          "mb-20 mt-20 min-h-fit select-none opacity-0 transition-all duration-700",
           {
             "opacity-100": weatherComponentVisibility,
           },
@@ -93,28 +90,24 @@ const CurrentWeather = () => {
           <div className="relative">
             <div className="mb-5 flex w-full justify-between">
               <span className="ml-11">
-                {formatDateInfo &&
-                formatDateInfo.hours >= 5 &&
-                formatDateInfo.hours <= 18
+                {formatDateInfo.hour >= 5 && formatDateInfo.hour <= 17
                   ? "Day"
                   : "Night"}
               </span>
               {/* city name & country*/}
               <div className="flex gap-1">
                 <span className="text-end text-base capitalize sm:text-xl">
-                  {weatherInfo?.name}, {selectedCity.country}
+                  {weatherInfo?.name}, {weatherInfo?.country}
                 </span>
                 <MapPin className="text-zinc-500" />
               </div>
             </div>
 
             {/* On the basis of day and night show the day/night lottie file */}
-            {formatDateInfo &&
-            formatDateInfo.hours >= 5 &&
-            formatDateInfo.hours <= 18 ? (
+            {formatDateInfo.hour >= 5 && formatDateInfo.hour <= 17 ? (
               <div className="absolute -left-4 -top-14 w-20 md:-left-14 md:-top-16 md:w-28">
                 <LottiePlayer
-                  srcPath="/morning-1.lottie"
+                  srcPath="/morning.lottie"
                   width={100}
                   className="-rotate-[10deg]"
                 />
@@ -132,6 +125,7 @@ const CurrentWeather = () => {
               <LottiePlayer srcPath="/sunny-cloudy.lottie" width={20} />
             </div>
             <div className="md:mr-2">
+              {/* Temp in degree Celsius */}
               <h2 className="text-nowrap text-center text-2xl">
                 {weatherInfo?.main.temp} <sup>o</sup>C
               </h2>
@@ -139,14 +133,15 @@ const CurrentWeather = () => {
               {/* visual separator */}
               <div className="h-px w-full bg-zinc-600" />
 
+              {/* Highest & lowest temp. */}
               <div className="flex gap-2 text-sm text-zinc-600">
                 <span className="text-nowrap">
-                  H: {formatDateInfo && Math.floor(weatherInfo?.main.temp_max)}
+                  H: {Math.floor(weatherInfo?.main.temp_max)}
                   <sup>o</sup>
                 </span>
                 |
                 <span className="text-nowrap">
-                  L: {formatDateInfo && Math.floor(weatherInfo?.main.temp_min)}
+                  L: {Math.floor(weatherInfo?.main.temp_min)}
                   <sup>o</sup>
                 </span>
               </div>
@@ -173,21 +168,28 @@ const CurrentWeather = () => {
                   </span>
                 </div>
               </div>
-              {/* <span>{formatDate(weatherInfo?2.dt)!}</span> */}
+
               <div className="self-start text-zinc-700">
-                <div className="flex justify-between gap-2">
-                  <span className="text-sm capitalize">
-                    {/* scattered clouds */}
-                    {WEATHERINFO[weatherInfo?.weather[0]?.icon]?.icon}
-                  </span>{" "}
-                  <span className="animate-stretch">
-                    {WEATHERINFO[weatherInfo?.weather[0]?.icon]?.emoji}
-                  </span>
+                <div className="flex gap-2">
+                  <div className="ml-auto">
+                    <span className="text-sm capitalize">
+                      {/* scattered clouds */}
+                      {WEATHERINFO[weatherInfo?.weather[0]?.icon]?.icon}
+                    </span>{" "}
+                    <span className="animate-stretch">
+                      {WEATHERINFO[weatherInfo?.weather[0]?.icon]?.emoji}
+                    </span>
+                  </div>
                 </div>
                 {/* visual separator */}
                 <div className="h-px w-full bg-zinc-600/30" />
-                <div>
-                  <span className="text">chance of rain: </span>
+
+                <div className="flex items-center gap-1">
+                  <span className="text 1">
+                    chances of rain: {Number(weatherInfo?.pop * 100).toFixed(0)}
+                    %
+                  </span>
+                  <span className="inline-block animate-stretch">☔️</span>
                 </div>
               </div>
             </div>

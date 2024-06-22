@@ -16,14 +16,14 @@ interface weatherState {
 }
 
 export const useWeatherStore = create<weatherState>()((set) => ({
-  enableCurrentWeather: false,
+  enableCurrentWeather: true,
   setEnableCurrentWeather: (enableCurrentWeather: boolean) =>
     set({ enableCurrentWeather }),
   weatherLoaderScreen: false,
   setWeatherLoaderScreen: (searchStarted: boolean) =>
     set({ weatherLoaderScreen: searchStarted }),
 
-  weatherComponentVisibility: false,
+  weatherComponentVisibility: true,
   setWeatherComponentVisibility: (viabilityOfWeatherComponent: boolean) =>
     set({ weatherComponentVisibility: viabilityOfWeatherComponent }),
   

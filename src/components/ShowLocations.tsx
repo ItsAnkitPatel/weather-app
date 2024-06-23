@@ -38,7 +38,7 @@ const ShowLocations = () => {
     }, 3000);
   };
 
-  const storedCityNames = JSON.parse(localStorage.getItem("cityNames") ?? "[]");
+
   return (
     <>
       {/* visual separator */}

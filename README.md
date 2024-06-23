@@ -17,7 +17,7 @@ Before you begin, ensure you have the following installed:
 1. Clone the repository:
 
 ```sh
-git clone https://github.com/yourusername/weather-app.git# Weather-App
+git clone https://github.com/yourusername/weather-app.git
 ```
 
 2. Navigate to the project directory:

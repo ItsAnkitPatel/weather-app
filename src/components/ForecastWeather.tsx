@@ -63,15 +63,18 @@ const ForecastWeather = () => {
       <div className="mx-auto w-7/12">
         <div className="flex flex-col px-2 py-3 max-md:items-center max-md:gap-5 md:flex md:flex-row md:justify-around md:gap-1">
           {Array.from({ length: 5 }, (_, i) => {
+
             const index = i === 0 ? 0 : i * 8;
-            console.log("index", index);
+            
             return (
               // Before Hover
               <div className="rounded-3xl shadow-lg" key={i}>
                 <div
                   className={`group relative h-16 w-64 sm:w-96 overflow-hidden text-wrap rounded-3xl p-2 shadow-inner shadow-zinc-400/80 transition-all duration-1000 
                      
-                    max-md:hover:min-h-52 md:min-h-48 md:w-20 md:hover:w-52`}
+                    max-md:hover:min-h-52 md:min-h-48 md:w-20 md:hover:w-52
+                    
+                    `}
                 >
                   <div className="absolute flex flex-row items-center 
                   gap-12 sm:gap-28

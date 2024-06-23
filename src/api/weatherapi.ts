@@ -60,9 +60,6 @@ const fetchWeather = debounce(
         },
         body: JSON.stringify(weatherData),
       });
-
-      console.log("current :", currentWeatherResponse);
-      console.log("forecast :", forecastResponse);
     } catch (err) {
       console.log(err);
     }

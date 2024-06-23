@@ -26,10 +26,7 @@ export const formatDate = ( timeZone: number) => {
   const day = localDate.getDay();
   const hour = localDate.getHours();
   const date = localDate.getDate();
-console.log(localDate.toLocaleDateString())
-  console.log(date);
-  // Determine if it's day or night
-  console.log("day", day, "hour", hour, "date", date);
+
   const data: FormatDateType = { day, date, hour };
   return data;
 };

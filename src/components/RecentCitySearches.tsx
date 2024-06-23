@@ -11,7 +11,6 @@ const RecentCitySearches = () => {
   const { setCities, setEnableLocationBar, setSearchLoader, setInputValue } =
     useAppContext();
 
-  console.log(storedCityNames);
 
   const updateInput = async (city: string) => {
     setInputValue(city);

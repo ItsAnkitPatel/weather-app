@@ -13,7 +13,6 @@ export type CityData = {
 
 const ShowLocations = () => {
   const { cities, setEnableLocationBar, setEnableOverlay } = useAppContext();
-  console.log("show locations", cities);
 
   const {
     setEnableCurrentWeather,
@@ -40,7 +39,6 @@ const ShowLocations = () => {
   };
 
   const storedCityNames = JSON.parse(localStorage.getItem("cityNames") ?? "[]");
-  console.log(storedCityNames);
   return (
     <>
       {/* visual separator */}

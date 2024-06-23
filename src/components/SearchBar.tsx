@@ -75,7 +75,6 @@ const SearchBar = () => {
     setCities([]);
 
     if (newInputValue.trim() !== "") {
-      console.log("executed");
       setSearchLoader(true);
       startSearch(newInputValue);
     }

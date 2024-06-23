@@ -20,10 +20,8 @@ const fetchLocations = debounce(
       },
     };
     try {
-      console.log(cityName);
       const response = await fetch(url, options);
       const result = await response.json();
-      console.log("result api data", result);
       let citiesData;
       if (result) {
         citiesData = result.data.map((cityData: CityData) => ({
@@ -49,7 +47,6 @@ const fetchLocations = debounce(
         }
       }
 
-      console.log("cities data", citiesData);
       setSearchLoader(false);
       setEnableLocationBar(true);
     } catch (error: any) {

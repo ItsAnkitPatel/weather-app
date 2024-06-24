@@ -2,7 +2,7 @@
 import { cn, formatDate } from "@/lib/utils";
 import { MapPin } from "lucide-react";
 import LottiePlayer from "./LottiePlayer";
-import { WEATHERINFO, WEEKDAYS } from "../constants";
+import { WEATHERINFO } from "../constants";
 import { useEffect, useState } from "react";
 import { useWeatherStore } from "@/store/weather";
 const CurrentWeather = () => {
@@ -148,7 +148,7 @@ const CurrentWeather = () => {
             </div>
           </div>
           <div>
-            <div className="flex items-center justify-between px-2 text-sm">
+            <div className="flex items-center justify-between px-2 text-xs sm:text-sm">
               <div className="*-underline flex flex-col gap-2 text-zinc-700 *:underline *:decoration-zinc-500/20 *:underline-offset-4">
                 <div className="flex gap-2 px-2">
                   <span>
@@ -169,11 +169,10 @@ const CurrentWeather = () => {
                 </div>
               </div>
 
-              <div className="self-start text-zinc-700">
+              <div className="self-start text-zinc-700 text-xs sm:text-sm">
                 <div className="flex gap-2">
                   <div className="ml-auto">
-                    <span className="text-sm capitalize">
-                      {/* scattered clouds */}
+                    <span className=" capitalize">
                       {WEATHERINFO[weatherInfo?.weather[0]?.icon]?.icon}
                     </span>{" "}
                     <span className="animate-stretch">
@@ -185,7 +184,7 @@ const CurrentWeather = () => {
                 <div className="h-px w-full bg-zinc-600/30" />
 
                 <div className="flex items-center gap-1">
-                  <span className="text 1">
+                  <span>
                     chances of rain: {Number(weatherInfo?.pop * 100).toFixed(0)}
                     %
                   </span>

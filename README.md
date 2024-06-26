@@ -2,6 +2,12 @@
 
 Weather-App is a web application designed to provide users with real-time weather information based on their location search. It utilizes various APIs to fetch weather and geographical data and presents it in an intuitive and visually appealing manner using Lottie animations.
 
+
+
+https://github.com/ItsAnkitPatel/weather-app/assets/163109788/062ccbae-40c1-4f24-881e-f2c2882b719e
+
+
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.

@@ -51,3 +51,5 @@ Built With
 **Mongoose** - MongoDB object modeling for Node.js
 **Tailwind CSS** - A utility-first CSS framework
 **LottieFiles** - For animated weather icons
+
+[![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FItsAnkitPatel%2Fweather-app&countColor=%232ccce4&style=plastic)](https://visitorbadge.io/status?path=https%3A%2F%2Fgithub.com%2FItsAnkitPatel%2Fweather-app)

@@ -48,7 +48,7 @@ const ShowLocations = () => {
         {cities ? (
           cities.map((city, index) => (
             <div
-              className="w-full rounded-lg px-2 py-3 transition-shadow duration-300 hover:cursor-pointer hover:border hover:shadow-lg"
+              className="w-full rounded-lg px-3 py-3 transition-shadow duration-300 hover:cursor-pointer hover:ring-1 ring-zinc-400 hover:shadow-lg"
               key={index}
               onClick={() => {
                 callWeatherAPI(city);

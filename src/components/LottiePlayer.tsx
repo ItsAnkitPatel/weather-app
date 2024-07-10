@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const LottiePlayer = ({

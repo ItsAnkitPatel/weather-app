@@ -3,8 +3,6 @@ import { cn } from "@/lib/utils";
 import { useWeatherStore } from "@/store/weather";
 import { useEffect, useState } from "react";
 const ForecastWeather = () => {
-  const [initialTransition, setInitialTransition] = useState(true);
-
   let info = [];
   if (typeof window !== "undefined") {
     info = JSON.parse(localStorage.getItem("forecastWeather") ?? "[]");
@@ -63,25 +61,18 @@ const ForecastWeather = () => {
       <div className="mx-auto w-7/12">
         <div className="flex flex-col px-2 py-3 max-md:items-center max-md:gap-5 md:flex md:flex-row md:justify-around md:gap-1">
           {Array.from({ length: 5 }, (_, i) => {
-
             const index = i === 0 ? 0 : i * 8;
-            
+
             return (
               // Before Hover
               <div className="rounded-3xl shadow-lg" key={i}>
                 <div
-                  className={`group relative h-16 w-64 sm:w-96 overflow-hidden text-wrap rounded-3xl p-2 shadow-inner shadow-zinc-400/80 transition-all duration-1000 
-                     
-                    max-md:hover:min-h-52 md:min-h-48 md:w-20 md:hover:w-52
-                    
-                    `}
+                  className={`group relative h-16 w-64 overflow-hidden text-wrap rounded-3xl p-2 shadow-inner shadow-zinc-400/80 transition-all duration-1000 max-md:hover:min-h-52 sm:w-96 md:min-h-48 md:w-20 md:hover:w-52`}
                 >
-                  <div className="absolute flex flex-row items-center 
-                  gap-12 sm:gap-28
-                  md:gap-8
-                  
-                  py-2 text-zinc-700 transition-opacity duration-1000 group-hover:opacity-0 md:flex-col">
-                    <span className="text-lg">{forecastDays[i]}</span>
+                  <div className="absolute flex flex-row items-center gap-12 py-2 text-zinc-700 transition-opacity duration-1000 group-hover:opacity-0 max-md:px-3 max-md:text-sm sm:gap-28 md:flex-col md:gap-8">
+                    <span className="text-base md:text-lg">
+                      {forecastDays[i]}
+                    </span>
                     <span className="animate-stretch text-2xl">
                       {
                         WEATHERINFO[

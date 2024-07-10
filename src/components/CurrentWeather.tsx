@@ -124,7 +124,7 @@ const CurrentWeather = () => {
             <div className="overflow-hidden">
               <LottiePlayer srcPath={`/${WEATHERINFO[weatherInfo?.weather[0]?.icon].lottiefile}.lottie`} width={20} />
             </div>
-            <div className="md:mr-2">
+            <div className="md:mr-2 ml-5">
               {/* Temp in degree Celsius */}
               <h2 className="text-nowrap text-center text-2xl">
                 {weatherInfo?.main.temp} <sup>o</sup>C
